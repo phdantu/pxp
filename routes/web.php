@@ -15,10 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/guias', function () {
-    return view('guias',[
-        'guias' => App\PaginaGuia::paginate(8)
-    ]);
-});
+Route::get('/guias','GuiasController@retornaGuias');
 
-Route::get('/guia/post/{guiaId}','GuiasController@show');
+Route::get('/guias/post/{guiaId}','GuiasController@show');
+
+Route::get('/login','PsnController@init');
