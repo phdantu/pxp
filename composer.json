@@ -12,7 +12,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^1.0",
-        "tustin/psn-php": "^2.1"
+        "tustin/psn-php": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

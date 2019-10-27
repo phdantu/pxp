@@ -8,7 +8,7 @@
 			<div class="hs-item set-bg" data-setbg="img/slider-1.jpg">
 				<div class="hs-text">
 					<div class="container">
-						<h2>The Best <span>Games</span> Out There</h2>
+						<h2>Os melhores <span>Games</span> Por aí</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada <br> lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. <br>Suspendisse cursus faucibus finibus.</p>
 						<a href="#" class="site-btn">Read More</a>
 					</div>
@@ -114,7 +114,7 @@
 								<div class="rgi-heart"><img src="img/icons/heart.png" alt=""></div>
 							</div>
 						</div>
-					</div>	
+					</div>
 				</div>
 				<div class="col-lg-4 col-md-6">
 					<div class="recent-game-item">
@@ -130,7 +130,7 @@
 								<div class="rgi-heart"><img src="img/icons/heart.png" alt=""></div>
 							</div>
 						</div>
-					</div>	
+					</div>
 				</div>
 				<div class="col-lg-4 col-md-6">
 					<div class="recent-game-item">
@@ -146,7 +146,7 @@
 								<div class="rgi-heart"><img src="img/icons/heart.png" alt=""></div>
 							</div>
 						</div>
-					</div>	
+					</div>
 				</div>
 			</div>
 		</div>
@@ -343,7 +343,7 @@
 	</section>
 	<!-- Footer top section end -->
 
-	
+
 	<!-- Footer section -->
 	<footer class="footer-section">
 		<div class="container">
@@ -360,5 +360,5 @@
             </p>
 		</div>
 	</footer>
-	<!-- Footer section end -->    
+	<!-- Footer section end -->
 @endsection

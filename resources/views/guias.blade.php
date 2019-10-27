@@ -12,8 +12,8 @@
             </div>
         </div>
         <!-- Latest news section end -->
-    
-    
+
+
         <!-- Page info section -->
         <section class="page-info-section set-bg" data-setbg="img/page-top-bg/1.jpg">
             <div class="pi-content">
@@ -28,8 +28,8 @@
             </div>
         </section>
         <!-- Page info section -->
-    
-    
+
+
         <!-- Page section -->
         <section class="page-section recent-game-page spad">
             <div class="container">
@@ -39,19 +39,19 @@
                             @foreach ($guias as $guia)
                                 <div class="col-md-6">
                                     <div class="recent-game-item">
-                                        <div class="rgi-thumb set-bg" data-setbg="img/recent-game/1.jpg">
-                                            <div class="cata new">racing</div>
+                                        <div class="rgi-thumb set-bg" data-setbg="{{ asset($guia->imagem_path) }}">
+                                            <a href="/guias/post/{{ $guia->id_guia }}"><div class="cata new">racing</div></a>
                                         </div>
                                         <div class="rgi-content">
-                                            <h5>{{ $guia->nome_guia }}</h5>
+                                            <a href="/guias/post/{{ $guia->id_guia }}"><h5>{{ $guia->nome_guia }}</h5></a>
                                             <p>{{ $guia->descricao_guia }}</p>
-                                            <a href="{{ $guia->link_guia }}" class="comment">3 Comments</a>
+                                            {{-- <a href="/guias/post/{{ $guia->id_guia }}" class="comment">3 Comments</a> --}}
                                             <div class="rgi-extra">
-                                                <div class="rgi-star"><img src="img/icons/star.png" alt=""></div>
-                                                <div class="rgi-heart"><img src="img/icons/heart.png" alt=""></div>
+                                                <div class="rgi-star"><img src="{{ asset('img/icons/star.png') }}" alt=""></div>
+                                                <div class="rgi-heart"><img src="{{ asset('img/icons/heart.png') }}" alt=""></div>
                                             </div>
                                         </div>
-                                    </div>	
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
@@ -155,6 +155,6 @@
             </div>
         </section>
         <!-- Page section end -->
-    
-    
+
+
 @endsection
