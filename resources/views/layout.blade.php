@@ -7,7 +7,11 @@
 	<meta name="keywords" content="warrior, game, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
+<<<<<<< HEAD
 	<link href="{{ asset('images/icon.png') }}" rel="shortcut icon"/>
+=======
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+>>>>>>> 1b5701a1224877f5e1c09cc2fa07bab867d73d09
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
@@ -52,10 +56,17 @@
 				<nav class="main-menu">
 					<ul>
 						<li><a href="/">Home</a></li>
+<<<<<<< HEAD
 						<li><a href="/guias">Guias</a></li>
 						{{-- <li><a href="/">Blog</a></li> --}}
 						<li><a href="http://localhost/forum/" target="_blank">Forum</a></li>
 						{{-- <li><a href="/">Contact</a></li> --}}
+=======
+						<li><a href="guias">Guias</a></li>
+						<li><a href="/">Blog</a></li>
+						<li><a href="/">Forums</a></li>
+						<li><a href="/">Contact</a></li>
+>>>>>>> 1b5701a1224877f5e1c09cc2fa07bab867d73d09
 					</ul>
 				</nav>
 			</div>
