@@ -15,4 +15,8 @@ class UsuarioRepository{
     {
         return Usuario::where('login_usuarios',$login)->first();
     }
+
+    public function inserir(array $user){
+
+    }
 }

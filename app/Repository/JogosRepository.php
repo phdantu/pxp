@@ -12,6 +12,11 @@ class JogosRepository{
         return Jogo::where('id_jogos',$idJogo);
     }
 
+    public function findByPsnId($idPSN)
+    {
+        return Jogo::where('jogo_id_psn',$idPSN);
+    }
+
     public function salvarJogo(array $jogo) : bool
     {
         DB::enableQueryLog();

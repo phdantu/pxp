@@ -4,7 +4,6 @@ namespace App\Repository;
 use App\Trofeu;
 use App\Jogo;
 use App\GrupoTrofeu;
-use App\Repository\JogosRepository;
 
 
 use DB;
@@ -21,14 +20,19 @@ class TrofeusRepository {
     public function salvarTrofeus(array $trofeus,$jogoPsnId,$trophyGroupIdPsn)
     {
         foreach($trofeus as $trofeu){
-            $this::salvarSingleTrofeu($trofeu,$jogoPsnId,$trophyGroupIdPsn);
+            try {
+                $this::salvarSingleTrofeu($trofeu,$jogoPsnId,$trophyGroupIdPsn);
+            } catch (\Throwable $th) {
+                console.log("Erro ao salvar" + $trofeu);
+            }
+
         }
     }
 
 
     public function salvarSingleTrofeu($trofeu,$jogoPsnId,$trophyGroupIdPsn)
     {
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
 
         $gameBD = Jogo::where('jogo_id_psn',$jogoPsnId)->first();
         $trophyGroupBD = GrupoTrofeu::where([
@@ -40,12 +44,6 @@ class TrofeusRepository {
             ['grupo_trofeu_id','=',$trophyGroupBD->id_grupo_trofeus],
             ['jogos_id','=',$gameBD->id_jogos]])->first();
 
-        $queries = DB::getQueryLog();
-        /* print_r($gameBD);
-        print_r($trophyGroupBD);
-        print_r($queries);
-        dd($trofeuSalvar);
-        dd($trofeuSalvar); */
         if($trofeuSalvar == null){
             $arrayAtributesTrofeu = [
                 'trofeu_id_psn' => $trofeu->trophy->trophyId,
@@ -62,7 +60,6 @@ class TrofeusRepository {
             ];
 
             $trofeuToSave = new Trofeu($arrayAtributesTrofeu);
-            //dd($trofeuToSave);
             $trofeuToSave->save();
             try {
                 return true;

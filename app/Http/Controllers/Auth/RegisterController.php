@@ -63,10 +63,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $uuid = $this->pegaTicketUuid($data['uuid']);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'uuid' => $uuid,
+            'twosv' => $data['2sv'],
+            'psnUser' => $data['psnUser'],
         ]);
+    }
+
+    private function pegaTicketUuid($link): string
+    {
+        $stringBusca = "ticket_uuid=";
+        return substr($link,strpos($link,$stringBusca)+12,36);
     }
 }

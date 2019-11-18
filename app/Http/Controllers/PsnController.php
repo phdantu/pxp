@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 require_once '../vendor/autoload.php';
 
 use App\Users;
+use Auth;
 use Illuminate\Http\Request;
 use PlayStation\Client;
 use App\Repository\JogosRepository;
 use App\Repository\GrupoTrofeusRepository;
 use App\Repository\TrofeusRepository;
+use App\Repository\UsuarioJogoRepository;
 use App\Repository\UsuarioTrofeuRepository;
 use App\Usuario_trofeu;
 
@@ -36,12 +38,17 @@ class PsnController extends Controller
         $user->save();
 
         $games = $client->user()->games();
+        $me = $client->user()->onlineId();
+        $user = $client->user();
+
         //Quando pesquisa proprio objeto nao vem atributo comparedUser
         ini_set('max_execution_time', 300);
+
+        $this->salvaUserInfo($user);
         $this::salvaJogosETrofeus($games);
 
-
-        //$this::vinculaUsuarioComJogos($games);
+        $usuarioJogoRepository = new UsuarioJogoRepository;
+        $this::vinculaUsuarioComJogos($games,$usuarioJogoRepository);
         $usuarioTrofeuRepository = new UsuarioTrofeuRepository;
         $this::vinculaUsuarioComTrofeus($games,$usuarioTrofeuRepository);
 
@@ -68,6 +75,42 @@ class PsnController extends Controller
         //dd($games);
     }
 
+    public function primeiroAcesso()
+    {
+        $user = Users::find(Auth::user()->id);
+        if(Auth::user()->primeiroacesso)
+        {
+            $client = new Client();
+            $client->login(Auth::user()->uuid, Auth::user()->twosv);
+            $refreshToken = $client->refreshToken();
+
+
+            $user->uuid = $refreshToken;
+            $user->primeiroacesso = false;
+            $user->save();
+
+            $userPSN = $client->user();
+            $games = $userPSN->games();
+
+        }else{
+
+            $client = new Client();
+            $client->login($user->uuid);
+            $refreshToken = $client->refreshToken();
+            $user->uuid = $refreshToken;
+            $user->save();
+
+            $userPSN = $client->user();
+            $games = $userPSN->games(5);
+        }
+        return view('profile',['user' => $userPSN, 'games' => $games]);
+
+    }
+
+    private function salvaUserInfo($user)
+    {
+        //metodo para salvar informações da PSN referentes ao usuario
+    }
     private function salvaJogosETrofeus($games)
     {
         $jogosRepository = new JogosRepository;
@@ -129,13 +172,7 @@ class PsnController extends Controller
         $idUser = 1;
         foreach ($games as $game) {
             if ($game->hasTrophies()) {
-
-
-                $trophyGroups = $game->trophyGroups();
-
-                foreach ($trophyGroups as $trophyGroup) {
-                    $repository->vinculaUsuarioComJogos($idUser, $game);
-                }
+                $repository->vinculaUsuarioComJogos($game,$idUser);
             }
         }
     }

@@ -2,9 +2,6 @@
 
 namespace App\Repository;
 
-use App\Repository\Usuario;
-use App\Trofeu;
-use App\Repository\Jogo;
 use App\Usuario_trofeu;
 
 class UsuarioTrofeuRepository{

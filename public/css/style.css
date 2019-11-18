@@ -13,6 +13,10 @@
     height: 30%;
 }
 
+.bg-game{
+    background: #e6e6e6;
+}
+
 html,
 body {
 	height: 100%;
@@ -148,6 +152,10 @@ ol {
 	border: none;
 	background: #ffb320;
 	cursor: pointer;
+}
+
+.site-btn:hover{
+    background: #d39417;
 }
 
 .site-btn.btn-sm {

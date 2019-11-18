@@ -11,16 +11,28 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/guias','GuiasController@retornaGuias');
 
 Route::get('/guias/post/{guiaId}','GuiasController@show');
 
-Route::get('/login','PsnController@init');
+Route::get('psn/','PsnController@init');
 
+Route::get('/profile','PsnController@primeiroAcesso');
+
+Route::get('login/', function () {
+    return view('login');
+});
+
+Route::get('/new_user', function () {
+    return view('new_user');
+});
+Route::post('/new_user', 'UserController@primeiroLogin');
 Route::get('user/', function () {
     return view('user');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
