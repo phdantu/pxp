@@ -9,12 +9,56 @@
 /* Template default CSS
 /*---------------------------*/
 
+.borderText{
+    -webkit-text-stroke: 1.5px black;
+}
+.bgTitleGame{
+    background: #f9fdff;
+}
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center; /** ISSO AQUI ALINHA VERTICALMENTE */
+}
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+.imgTrophyGamePageThumbnail{
+    height: 65%;
+}
+
+div.flex-align {
+    display: -webkit-flexbox;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    height: 100%;
+  }
+
+.imgTrophiesGamePage{
+    height: 60px;
+}
+.textTrophy{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.imgTrophies{
+    height: 30px;
+    margin: 10px;
+}
+
 .trofeu-image {
     height: 30%;
 }
 
 .bg-game{
-    background: #e6e6e6;
+    background: #faf4f4;
 }
 
 html,

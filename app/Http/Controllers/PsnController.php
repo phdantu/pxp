@@ -12,8 +12,10 @@ use App\Repository\JogosRepository;
 use App\Repository\GrupoTrofeusRepository;
 use App\Repository\TrofeusRepository;
 use App\Repository\UsuarioJogoRepository;
+use App\Repository\UsuarioRepository;
 use App\Repository\UsuarioTrofeuRepository;
 use App\Usuario_trofeu;
+use PhpParser\Node\Stmt\Foreach_;
 
 //require_once '../app/Repository/trofeusRepository.php';
 
@@ -77,8 +79,69 @@ class PsnController extends Controller
 
     public function primeiroAcesso()
     {
-        $user = Users::find(Auth::user()->id);
-        if(Auth::user()->primeiroacesso)
+        $cliente = $this->apiPsnClient(Users::find(Auth::user()->id));
+        $userPSN = $cliente->user();
+        $games = $userPSN->games(5);
+        return view('profile',['user' => $userPSN, 'games' => $games]);
+
+    }
+
+    public function compare($psnUser)
+    {
+        /* $userRepository = new UsuarioRepository;
+        $amigoDB = $userRepository->getUserByPsnUser($psnUser);
+        $amigoPSN = $this->apiPsnClient($amigoDB->id); */
+        $cliente = $this->apiPsnClient(Users::find(Auth::user()->id));
+        //$amigo = $cliente->user($psnUser)->games();
+        $meusJogos = $cliente->user()->games(5);
+        $arrayJogosAmigo = $cliente->user($psnUser)->games();
+
+
+
+        foreach($meusJogos as $mJogo){
+             foreach($arrayJogosAmigo as $jAmigo){
+                if($jAmigo->titleId() === $mJogo->titleId()){
+                    $arrayCompare[] = $jAmigo->trophyGroups();
+
+                }
+            }
+            if(count($arrayCompare)>5){
+                break;
+            }
+        }
+        dd($arrayCompare);
+
+
+        $games = $userPSN->games(5);
+
+        foreach ($games as $game) {
+            if ($game->hasTrophies()) {
+                $trophyGroups = $game->trophyGroups();
+
+
+                foreach ($trophyGroups as $trophyGroup) {
+                    echo sprintf("\t%s has %d trophies\n", $trophyGroup->name(), $trophyGroup->trophyCount());
+
+                    foreach ($trophyGroup->trophies("pt") as $trophy) {
+                        dd();
+                        if (!$trophy->earned()) continue; // Skip unearned trophies.
+
+                        echo sprintf("\t\t[%s] %s - %s (earn rate - %.2f%%)\n", $trophy->type(), $trophy->name(), $trophy->detail(), $trophy->earnedRate());
+                    }
+                }
+            }
+        }
+        die();
+    }
+
+    private function salvaUserInfo($user)
+    {
+        //metodo para salvar informações da PSN referentes ao usuario
+    }
+
+    private function apiPsnClient($user)
+    {
+        if($user->primeiroacesso)
         {
             $client = new Client();
             $client->login(Auth::user()->uuid, Auth::user()->twosv);
@@ -89,9 +152,7 @@ class PsnController extends Controller
             $user->primeiroacesso = false;
             $user->save();
 
-            $userPSN = $client->user();
-            $games = $userPSN->games();
-
+            return $client;
         }else{
 
             $client = new Client();
@@ -100,17 +161,18 @@ class PsnController extends Controller
             $user->uuid = $refreshToken;
             $user->save();
 
-            $userPSN = $client->user();
-            $games = $userPSN->games(5);
+            return $client;
         }
-        return view('profile',['user' => $userPSN, 'games' => $games]);
-
     }
 
-    private function salvaUserInfo($user)
+    public function gameInfo($gameId)
     {
-        //metodo para salvar informações da PSN referentes ao usuario
+
+        $cliente = $this->apiPsnClient(Users::find(Auth::user()->id));
+        $game = $cliente->game($gameId);
+        return view('game',['games' => $game]);
     }
+
     private function salvaJogosETrofeus($games)
     {
         $jogosRepository = new JogosRepository;

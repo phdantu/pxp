@@ -1,5 +1,5 @@
 @extends('layout')
-{{-- VERIFICAR A PROPRIEDADE DO GRUPO DE PROGRESSO PARA OTIMIZAR ESTA TELA --}}
+
 @section('content')
 <br><br>
     <div class="container">

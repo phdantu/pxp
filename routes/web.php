@@ -11,7 +11,9 @@
 |
 */
 
-
+Route::get('/', function () {
+    return redirect('/home');
+});
 
 Route::get('/guias','GuiasController@retornaGuias');
 
@@ -19,7 +21,11 @@ Route::get('/guias/post/{guiaId}','GuiasController@show');
 
 Route::get('psn/','PsnController@init');
 
+Route::get('game/{gameId}','PsnController@gameInfo');
+
 Route::get('/profile','PsnController@primeiroAcesso');
+
+Route::get('/compare/{psnUser}','PsnController@compare');
 
 Route::get('login/', function () {
     return view('login');

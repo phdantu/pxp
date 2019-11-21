@@ -2,21 +2,23 @@
 
 namespace App\Repository;
 
-use App\Usuario;
+use App\User;
 
 class UsuarioRepository{
 
     public function getUsuarioById($id): object
     {
-        return Usuario::where('id_usuarios',$id)->first();
+        return User::where('id',$id)->first();
     }
 
     public function getUsuarioByLogin($login): object
     {
-        return Usuario::where('login_usuarios',$login)->first();
+        return User::where('email',$login)->first();
     }
 
-    public function inserir(array $user){
-
+    public function getUserByPsnUser($psnUser): object
+    {
+        return User::where('psnUser',$psnUser)->first();
     }
+
 }
