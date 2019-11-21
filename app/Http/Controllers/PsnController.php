@@ -88,15 +88,11 @@ class PsnController extends Controller
 
     public function compare($psnUser)
     {
-        /* $userRepository = new UsuarioRepository;
-        $amigoDB = $userRepository->getUserByPsnUser($psnUser);
-        $amigoPSN = $this->apiPsnClient($amigoDB->id); */
         $cliente = $this->apiPsnClient(Users::find(Auth::user()->id));
-        //$amigo = $cliente->user($psnUser)->games();
-        $meusJogos = $cliente->user()->games(5);
-        $arrayJogosAmigo = $cliente->user($psnUser)->games();
-
-
+        $me = $cliente->user();
+        $friend = $cliente->user($psnUser);
+        $meusJogos = $cliente->user()->games(50);
+        $arrayJogosAmigo = $friend->games();
 
         foreach($meusJogos as $mJogo){
              foreach($arrayJogosAmigo as $jAmigo){
@@ -109,29 +105,11 @@ class PsnController extends Controller
                 break;
             }
         }
-        dd($arrayCompare);
-
-
-        $games = $userPSN->games(5);
-
-        foreach ($games as $game) {
-            if ($game->hasTrophies()) {
-                $trophyGroups = $game->trophyGroups();
-
-
-                foreach ($trophyGroups as $trophyGroup) {
-                    echo sprintf("\t%s has %d trophies\n", $trophyGroup->name(), $trophyGroup->trophyCount());
-
-                    foreach ($trophyGroup->trophies("pt") as $trophy) {
-                        dd();
-                        if (!$trophy->earned()) continue; // Skip unearned trophies.
-
-                        echo sprintf("\t\t[%s] %s - %s (earn rate - %.2f%%)\n", $trophy->type(), $trophy->name(), $trophy->detail(), $trophy->earnedRate());
-                    }
-                }
-            }
+        if(!isset($arrayCompare)){
+           //erro usuarios nao tem trofeus em comum
         }
-        die();
+        return view('comparing',['gamesGroups' => $arrayCompare, 'me' => $me,
+                                'friend' => $friend]);
     }
 
     private function salvaUserInfo($user)
