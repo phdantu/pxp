@@ -22,6 +22,10 @@ use PhpParser\Node\Stmt\Foreach_;
 class PsnController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function init(){
         $client = new Client();
@@ -101,12 +105,12 @@ class PsnController extends Controller
 
                 }
             }
-            if(count($arrayCompare)>5){
+            if(isset($arrayCompare) && count($arrayCompare)>5){
                 break;
             }
         }
         if(!isset($arrayCompare)){
-           //erro usuarios nao tem trofeus em comum
+           abort(404);
         }
         return view('comparing',['gamesGroups' => $arrayCompare, 'me' => $me,
                                 'friend' => $friend]);
