@@ -36,6 +36,6 @@ Route::get('/profile','PsnController@primeiroAcesso');
 
 Route::get('/compare/{psnUser}','PsnController@compare');
 
-Route::get('challenges/', function () {
-    return view('challenges');
-});
+Route::post('/notificacao/insert/','NotificacaoController@insert');
+
+Route::get('challenges/', 'NotificacaoController@getByUser');

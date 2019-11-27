@@ -16,10 +16,15 @@ class CreateNotificacaoDesafiosTable extends Migration
         Schema::create('notificacao_desafios', function (Blueprint $table) {
             $table->bigIncrements('id_notificacao');
             $table->boolean('lida')->default(false);
-            $table->unsignedBigInteger('usuarioDestino');
+           /*  $table->unsignedBigInteger('usuarioDestino');
             $table->foreign('usuarioDestino')->references('users')->on('id');
             $table->unsignedBigInteger('usuarioRemetente');
             $table->foreign('usuarioRemetente')->references('users')->on('id');
+            $table->unsignedBigInteger('jogos');
+            $table->foreign('jogos')->references('jogos')->on('id_jogos'); */
+            $table->string('usuarioDestino');
+            $table->string('usuarioRemetente');
+            $table->string('jogos');
             $table->timestamps();
         });
     }

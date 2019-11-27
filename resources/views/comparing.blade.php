@@ -95,7 +95,14 @@
                             </div>
                         </div>
                         @if ($myProgress > $fProgress)
-                            <div class="col-md-1">Poke</div>
+                            <div class="col-md-1 center">
+                                <form action="{{url('/notificacao/insert/')}}" method="post">
+                                    @csrf
+                                    <button class="btn-primary" id="pokeJogo" name="pokeJogo" type="submit" value="{{ $gg->game->game->trophyTitleName }}">Desafiar</button>
+                                    <input type="hidden" id="pokeUserTo" name="pokeUserTo" value="{{ $friend->onlineId() }}">
+                                    <input type="hidden" id="pokeUserFrom" name="pokeUserFrom" value="{{ $me->onlineId() }}">
+                                </form>
+                            </div>
                         @endif
                     </div>
                 </div>
